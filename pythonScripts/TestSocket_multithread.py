@@ -22,7 +22,7 @@ class ClientThread(threading.Thread):
             ## for some reason, the client socket doesnt close properly unless it has received something from server..
             print("thread:",CurrentClient.val,", Msg from client",msg)
             self.csocket.send(bytes(msg,'UTF-8'))
-            if  msg == 'bye' :
+            if  msg == 'bye' or '':
                 break
         print("Client at", CurrentClient.val, "disconnected..")
 
