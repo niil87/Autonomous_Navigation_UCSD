@@ -11,7 +11,7 @@ while tries > 0 :
             print ("Failed to connect even after retrying " + str(tries) + " times")
             break;    
         else :
-            print ("retrying after 1 secs")
+            print ("retrying after 1 secs, initial connection")
             time.sleep(1)
     else:
         break
@@ -22,7 +22,7 @@ tries = 10
 while tries > 0 :
     tries = tries - 1
     try : 
-        cursor.execute('DESCRIBE PriceList;')
+        cursor.execute('SELECT * FROM PriceList;')
     except mysql.connector.errors.ProgrammingError:
         if tries == 0:
             print ("Failed to connect even after retrying " + str(tries) + " times")
