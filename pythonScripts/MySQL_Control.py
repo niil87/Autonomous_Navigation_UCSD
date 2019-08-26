@@ -18,20 +18,8 @@ while tries > 0 :
 
 cursor = connection.cursor()
 
-tries = 10
-while tries > 0 :
-    tries = tries - 1
-    try : 
-        cursor.execute('SELECT * FROM PriceList;')
-    except mysql.connector.errors.ProgrammingError:
-        if tries == 0:
-            print ("Failed to connect even after retrying " + str(tries) + " times")
-            break;    
-        else :
-            print ("retrying after 1 secs")
-            time.sleep(1)
-    else:
-        break
+## no need to protection for this if LOCK TABLES is used.. as this will put the process on hold instead of crashing; until UNLOCK IS CALLED
+cursor.execute('SELECT * FROM PriceList;')
 record = cursor.fetchall()
 print(record)
 cursor.execute('INSERT INTO PriceList VALUES (\'P1\',1.0)')
