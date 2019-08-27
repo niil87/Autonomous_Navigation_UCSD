@@ -1,0 +1,9 @@
+mysql> CREATE TABLE VehicleMode (ModeType VARCHAR(20), MaxSpeed FLOAT(2,1), DangerZoneRadius FLOAT(3,2), WaitTime SMALLINT(4), StopProfile VARCHAR(20), ExternalRequest VARCHAR(20));
+
+INSERT INTO Vehicle VALUES ('School Bus',0.5,0.5,5,'All Stops','No/Disable');
+
+
+
+UPDATE TransferRequest SET StartStop = NULL WHERE StartStop = 'P1';
+## remember to use 'IS NULL' instead of = NULL, you can set but not in condition
+UPDATE TransferRequest SET EndStop = NULL WHERE (StartStop is NULL AND EndStop = 'P3');
