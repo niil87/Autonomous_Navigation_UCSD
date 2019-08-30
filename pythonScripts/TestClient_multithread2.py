@@ -1,9 +1,9 @@
 import socket
 
-#Server_IP = (input("Enter the IP addr of Server to establish connection: ")).rstrip()
+Server_IP = (input("Enter the IP addr of Server to establish connection: ")).rstrip()
 User_Name = (input("Enter your name to create new entry or update your account details for travel expenses: ")).rstrip()
-SERVER = "192.168.0.103"
-#SERVER = Server_IP
+#SERVER = "192.168.55.1"
+SERVER = Server_IP
 PORT = 11111
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((SERVER,PORT))
