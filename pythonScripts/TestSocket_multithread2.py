@@ -13,7 +13,7 @@ def ConnectToMySQL (TableName, StrToMySQL) :
     while tries > 0 :
         tries -= 1
         try : 
-            connection = mysql.connector.connect(host='localhost', database='UCSDrobocar04_DataBase', user = 'server_process', password='team4ucsd')
+            connection = mysql.connector.connect(host='localhost', database='UCSDrobocar04_TransferRequest', user = 'server_process', password='team4ucsd')
         except mysql.connector.errors.ProgrammingError:
             if tries == 0:
                 print ("Failed to connect even after retrying " + str(tries) + " times")
@@ -24,7 +24,7 @@ def ConnectToMySQL (TableName, StrToMySQL) :
         else :
             break
     cursor = connection.cursor()
-    cursor.execute('USE UCSDrobocar04_DataBase;')
+    cursor.execute('USE UCSDrobocar04_TransferRequest;')
     if StrToMySQL == 'Nothing' :
         print ("Nothing to add/overwrite to table")
     else :
