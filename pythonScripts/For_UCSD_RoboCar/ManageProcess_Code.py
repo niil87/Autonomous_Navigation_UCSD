@@ -6,7 +6,7 @@ def ConnectToMySQL_Manage (TableName, StrToMySQL) :
     while tries > 0 :
         tries -= 1
         try : 
-            connection = mysql.connector.connect(host='192.168.33.27', database='UCSDrobocar04_TransferRequest', user = 'manage_process', password='team4ucsd')
+            connection = mysql.connector.connect(host='localhost', database='UCSDrobocar04_TransferRequest', user = 'manage_process', password='team4ucsd')
         except mysql.connector.errors.ProgrammingError:
             if tries == 0:
                 print ("Failed to connect even after retrying " + str(tries) + " times")

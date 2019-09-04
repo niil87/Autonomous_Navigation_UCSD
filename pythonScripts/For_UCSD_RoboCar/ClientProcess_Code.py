@@ -23,6 +23,9 @@ while True:
     out_data = (input(in_data.decode())).rstrip()
     client.sendall(bytes(out_data, 'UTF-8'))
     in_data = client.recv(1024)
+    if "Sorry we cannot accept any more request" in in_data.decode() :
+        print("Terminating Connection as Public transport in in School Bus mode")
+        break;
     print("From Server :", in_data.decode())
 	
 client.close()

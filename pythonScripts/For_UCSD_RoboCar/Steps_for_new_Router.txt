@@ -1,0 +1,3 @@
+edit mysql data base to add manage_process with appropriate ip address. Have theACCESS for both data bases, transfer request to read and write and vehiclemode to read only
+
+server process can operate as localhost but manageprocess has to be REMOTE
