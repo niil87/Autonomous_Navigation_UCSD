@@ -3,10 +3,11 @@ import time
 
 def ConnectToMySQL_Manage (TableName, StrToMySQL) :
     tries = 10
+    DataBase = 'UCSDrobocar04_' + TableName
     while tries > 0 :
         tries -= 1
         try : 
-            connection = mysql.connector.connect(host='localhost', database='UCSDrobocar04_TransferRequest', user = 'manage_process', password='team4ucsd')
+            connection = mysql.connector.connect(host='localhost', database=DataBase, user = 'manage_process', password='team4ucsd')
         except mysql.connector.errors.ProgrammingError:
             if tries == 0:
                 print ("Failed to connect even after retrying " + str(tries) + " times")
@@ -17,7 +18,7 @@ def ConnectToMySQL_Manage (TableName, StrToMySQL) :
         else :
             break
     cursor = connection.cursor()
-    cursor.execute('USE UCSDrobocar04_TransferRequest;')
+    cursor.execute('USE ' + DataBase+ ';')
     cursor.execute(StrToMySQL)
     record = "Nothing"
     if 'REPLACE' in StrToMySQL : 
@@ -34,13 +35,23 @@ def ConnectToMySQL_Manage (TableName, StrToMySQL) :
 
 def CheckLocation(location) :
 
-    tableName = 'TransferRequest'
-    strToMySQL = "SELECT * FROM TransferRequest WHERE (StartLocation = \'" + location + "\' OR EndLocation = \'" + location + "\');"
-    #print(strToMySQL)
+    tableName = 'VehicleMode'
+    strToMySQL = "SELECT Active FROM VehicleMode WHERE ModeType = \'School Bus\';"
     retn = ConnectToMySQL_Manage (tableName, strToMySQL)
     msg = "No msg"
+    print(retn)
+    if 'Y' in retn[0][0] :
+        print ("Stop at all stops")
+        msg = True
+        return msg
+
+    tableName = 'TransferRequest'
+    strToMySQL = "SELECT * FROM TransferRequest WHERE (StartLocation = \'" + location + "\' OR (StartLocation IS NULL AND EndLocation = \'" + location + "\'));"
+    #print(strToMySQL)
+    retn = ConnectToMySQL_Manage (tableName, strToMySQL)
+
     #print ("SQL Query returned: " + str(retn))
-    if retn == [] : 
+    if retn == [] :
         msg = False
     else :
         #print(retn)
@@ -50,10 +61,12 @@ def CheckLocation(location) :
 def RemoveLocation(location) :
 
     tableName = 'TransferRequest'
-    strToMySQL = "SELECT * FROM TransferRequest WHERE (StartLocation = \'" + location + "\' OR EndLocation = \'" + location + "\');"
+    strToMySQL = "SELECT * FROM TransferRequest WHERE (StartLocation = \'" + location + "\' OR (StartLocation IS NULL AND EndLocation = \'" + location + "\'));"
     retn = ConnectToMySQL_Manage (tableName, strToMySQL)
 
-    if retn is not []:
+    if retn == []:
+        print ("Nothing to remove in database")
+    else :
         print ("Erasing entry")
         for entry in retn :
             if entry[1] == location :
@@ -75,11 +88,11 @@ def RemoveLocation(location) :
             retn = ConnectToMySQL_Manage (tableName, strToMySQL)
 
 
-Mymsg = CheckLocation('B')
+Mymsg = CheckLocation('R')
 if Mymsg is True :
     print ("Stop")
 else :
     print ("Dont Stop")
 
-RemoveLocation('B')
+RemoveLocation('R')
 
