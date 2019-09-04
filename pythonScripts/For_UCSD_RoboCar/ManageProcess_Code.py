@@ -27,7 +27,7 @@ def ConnectToMySQL_Manage (TableName, StrToMySQL) :
         record = cursor.fetchall()
     else : 
         record = cursor.fetchall()
-    print("Done!! closing MySQL Connection")
+    #print("Done!! closing MySQL Connection")
     cursor.close()
     connection.close()
     return record
@@ -36,15 +36,15 @@ def CheckLocation(location) :
 
     tableName = 'TransferRequest'
     strToMySQL = "SELECT * FROM TransferRequest WHERE (StartLocation = \'" + location + "\' OR EndLocation = \'" + location + "\');"
-    print(strToMySQL)
+    #print(strToMySQL)
     retn = ConnectToMySQL_Manage (tableName, strToMySQL)
     msg = "No msg"
-    print ("SQL Query returned: " + str(retn))
+    #print ("SQL Query returned: " + str(retn))
     if retn == [] : 
-        msg = "Dont stop"
+        msg = False
     else :
-        print(retn)
-        msg = "Please stop"
+        #print(retn)
+        msg = True
     return msg
 
 def RemoveLocation(location) :
@@ -69,13 +69,17 @@ def RemoveLocation(location) :
             else :
                 newEndDest =  "\'" + entry[2] + "\'"
 
-            print("New Tuple:" + entry[0] + ' ' + newStartDest + ' ' + newEndDest + ' ')
+            #print("New Tuple:" + entry[0] + ' ' + newStartDest + ' ' + newEndDest + ' ')
             strToMySQL = "REPLACE INTO TransferRequest VALUES (\'" + entry[0] + "\'," + newStartDest + "," + newEndDest + ");"
-            print (strToMySQL)
+            #print (strToMySQL)
             retn = ConnectToMySQL_Manage (tableName, strToMySQL)
 
 
-CheckLocation('B')
+Mymsg = CheckLocation('B')
+if Mymsg is True :
+    print ("Stop")
+else :
+    print ("Dont Stop")
 
 RemoveLocation('B')
 
