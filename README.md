@@ -15,3 +15,7 @@ Summary of Objectives :
       
       b. Additional image processing for color detection [ we failed to implement real time string recognition using Tesseract due to low processing power ] along with images used for autonomous nagivation.
 
+
+This repo contains source code for text recognition from images. 
+
+There is another repo that contains the source code for autonomous driving. https://github.com/wingz0c/ucsdrobocar04
