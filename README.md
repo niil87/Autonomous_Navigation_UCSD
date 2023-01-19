@@ -2,7 +2,7 @@ This repo contains the files and the final report as part of the course "Autonom
 
 Autonomous Vehicle Navigation using Nvidia Jetson Nano onboard processor; MySQL for database management; multi-threading for accessing a database on Linux Platform via MAC or Windows OS. The goal is to simulate the scenario where you as a customer can request for an autonomous public transport vehicle to stop at a particular terminal. The request will be logged into central server that can be accessed by the vehicle. Upon stopping at the terminal, the vehicle automatically removes any request for that terminal from central server (picks up customer), and continues the ride around a track. 
 
-Summary of Objectives :
+# Summary of Objectives :
 1. Mold a case to hold the Nvidia Jetson Nano processor using 3D printing
 2. Assemble the components additional components on toy car like a battery to power the Nano board, RF transciever for remote control of the car, Camera to collect images. 
 3. Drive the car around the track using remote control to collect images. 
